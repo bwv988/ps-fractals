@@ -1,0 +1,94 @@
+%!PS-Adobe-1.0
+%%Creator: Ralph Schlosser
+%%Title: Kochsche Schneeflockenkurve 
+%%CreationDate: 24.12.2002
+%%DocumentMedia: A4 595 842 0 () ()
+%%Orientation: Portrait
+%%Pages: (atend)
+%%EndComments
+
+% --------------------------------------------------------------------
+
+% Initialwerte
+/ANGLE1     60      def                     
+/ANGLE2     -120    def                     
+/LEN        500     def                     % Länge der Linie
+/MAX_DEPTH  6       def                     % Rekursionstiefe
+/STARTX     50     def                     % Initialwert f. X-Koordinate
+/STARTY     300     def                     % Initialwert f. Y-Koordinate
+
+/down
+{               
+    /LEN LEN 3 div def
+    /depth depth 1 add def
+}   def
+
+/up
+{            
+    /LEN LEN 3 mul def
+    /depth depth 1 sub def    
+}   def
+
+/font_init
+{
+    /size exch def                          % Fontgrösse
+    
+    /Times-Roman findfont
+    size scalefont
+    setfont
+    
+}   def
+
+/init
+{        
+    /depth 0 def                            % Tiefe auf 0 setzen
+    
+    20 font_init    
+    200 600 moveto
+    (Kochsche Schneeflockenkurve) show     
+    12 font_init    
+}   def
+
+
+% line - rekursive Funktion
+/line
+{                                                       
+    depth MAX_DEPTH lt
+    {                                            
+        down                      
+        line                   
+        ANGLE1 rotate                  
+        line                  
+        ANGLE2 rotate                                  
+        line       
+        ANGLE1 rotate                 
+        line
+        up                                                                                                    
+    }           
+    {           
+        0 0 moveto 
+        LEN 0 lineto                        % Linie zeichnen              
+        LEN 0 translate                                  
+    } ifelse  
+       
+}   def
+
+%%EndProlog
+
+% --------------------------------------------------------------------
+
+%%Page: 1 1
+
+init
+
+STARTX STARTY translate
+line
+stroke
+showpage
+
+% --------------------------------------------------------------------
+
+%%Trailer
+%%Pages: 1
+
+% --------------------------------------------------------------------

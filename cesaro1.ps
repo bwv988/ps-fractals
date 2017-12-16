@@ -1,0 +1,91 @@
+%!PS-Adobe-1.0
+% Achtung: Nicht optimiert!
+%%Creator: Ralph Schlosser
+%%Title: Cesaro-Insel 
+%%CreationDate: 17.3.2003
+%%DocumentMedia: A4 595 842 0 () ()
+%%Orientation: Portrait
+%%Pages: (atend)
+%%EndComments
+
+% --------------------------------------------------------------------
+
+% Initialwerte
+/ANGLE1     -85     def                     
+/ANGLE2     170     def                     
+/LEN        1700     def                     % Länge der Linie
+/MAX_DEPTH  5       def                     % Rekursionstiefe
+/STARTX     200     def                     % Initialwert f. X-Koordinate
+/STARTY     500     def                     % Initialwert f. Y-Koordinate
+
+/down
+{               
+    /LEN LEN 3 div def
+    /depth depth 1 add def
+}   def
+
+/up
+{            
+    /LEN LEN 3 mul def
+    /depth depth 1 sub def    
+}   def
+
+/init
+{            
+    /depth 0 def                            % Tiefe auf 0 setzen         
+    
+    STARTX STARTY translate                 % Koordinatensystem an Startposition    
+}   def
+
+
+% line - rekursive Funktion
+/line
+{                                                       
+    depth MAX_DEPTH lt
+    {                                            
+        down                      
+        line                   
+        ANGLE1 rotate                  
+        line                  
+        ANGLE2 rotate                                  
+        line       
+        ANGLE1 rotate                 
+        line
+        up                                                                                                    
+    }           
+    {                   
+        LEN 0 rlineto                        % Linie zeichnen              
+        LEN 0 translate                                        
+    } ifelse  
+       
+}   def
+
+%%EndProlog
+
+% --------------------------------------------------------------------
+
+%%Page: 1 1
+
+init
+
+0 0 moveto
+line
+270 rotate
+line
+270 rotate
+line
+270 rotate
+line
+
+%0 setgray fill                              % Füllfarbe 
+
+stroke
+
+showpage                                    % Bild ausgeben
+
+% --------------------------------------------------------------------
+
+%%Trailer
+%%Pages: 1
+
+% --------------------------------------------------------------------

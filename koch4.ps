@@ -1,0 +1,130 @@
+%!PS-Adobe-1.0
+%%Creator: Ralph Schlosser
+%%Title: Quadratische Kochinseln -- Geburtstagsgruß für MAMI ;-)
+%%CreationDate: 15.03.2003
+%%DocumentMedia: A4 595 842 0 () ()
+%%Orientation: Portrait
+%%Pages: (atend)
+%%EndComments
+
+% --------------------------------------------------------------------
+/ANGLE1     90      def                     
+/ANGLE2     -90     def
+
+/down
+{               
+    /LEN LEN 8 div def
+    /depth depth 1 add def
+}   def
+
+/up
+{            
+    /LEN LEN 8 mul def
+    /depth depth 1 sub def    
+}   def
+
+/init
+{            
+    /depth 0 def                            % Tiefe auf 0 setzen         
+    
+    STARTX STARTY translate                 % Koordinatensystem an Startposition    
+}   def
+
+
+% line - rekursive Funktion
+/line
+{                                                       
+    depth MAX_DEPTH lt
+    {                                            
+        down                      
+        line                   
+        ANGLE1 rotate                  
+        line                  
+        ANGLE2 rotate                                  
+        line       
+        ANGLE2 rotate                 
+        line
+        line
+        ANGLE1 rotate
+        line
+        ANGLE1 rotate
+        line
+        ANGLE2 rotate
+        line        
+        up                                                                                                    
+    }           
+    {                   
+        LEN 0 rlineto                        % Linie zeichnen              
+        LEN 0 translate                                        
+    } ifelse  
+       
+}   def
+
+/isle
+{
+    0 0 moveto
+    line
+    ANGLE1 rotate
+    line
+    ANGLE1 rotate
+    line
+    ANGLE1 rotate
+    line
+    0 setgray fill                              % Füllfarbe 
+    stroke
+} def
+
+/newisle
+{
+    gsave
+        init        
+        isle
+    grestore
+} def
+%%EndProlog
+
+% --------------------------------------------------------------------
+
+%%Page: 1 1
+/Times-Roman findfont
+20 scalefont
+setfont
+130 700 moveto
+(Vier Iterationen quadratischer Koch-Inseln) show
+%167 670 moveto
+%((PS: Alles Gute zum 50., MAMI!)) show
+% Initialwerte Insel 1
+/LEN        40      def                     % Länge der Linie
+/MAX_DEPTH  0       def                     % Rekursionstiefe
+/STARTX     50      def                     % Initialwert f. X-Koordinate
+/STARTY     50      def                     % Initialwert f. Y-Koordinate
+newisle
+
+% Initialwerte Insel 2
+/LEN        90      def                     % Länge der Linie
+/MAX_DEPTH  1       def                     % Rekursionstiefe
+/STARTX     110     def                     % Initialwert f. X-Koordinate
+/STARTY     140     def                     % Initialwert f. Y-Koordinate
+newisle
+
+% Initialwerte Insel 3
+/LEN        300     def                     % Länge der Linie
+/MAX_DEPTH  2       def                     % Rekursionstiefe
+/STARTX     180     def                     % Initialwert f. X-Koordinate
+/STARTY     236     def                     % Initialwert f. Y-Koordinate
+newisle
+
+% Initialwerte Insel 4
+/LEN        1600    def                     % Länge der Linie
+/MAX_DEPTH  3       def                     % Rekursionstiefe
+/STARTX     290     def                     % Initialwert f. X-Koordinate
+/STARTY     350     def                     % Initialwert f. Y-Koordinate
+newisle
+showpage                                    % Bild ausgeben
+
+% --------------------------------------------------------------------
+
+%%Trailer
+%%Pages: 1
+
+% --------------------------------------------------------------------

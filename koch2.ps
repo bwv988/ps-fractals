@@ -1,0 +1,90 @@
+%!PS-Adobe-1.0
+% Achtung: Nicht optimiert!
+%%Creator: Ralph Schlosser
+%%Title: Triadische Kochinsel 
+%%CreationDate: 24.12.2002
+%%DocumentMedia: A4 595 842 0 () ()
+%%Orientation: Portrait
+%%Pages: (atend)
+%%EndComments
+
+% --------------------------------------------------------------------
+
+% Initialwerte
+/ANGLE1     60      def                     
+/ANGLE2     -120    def                     
+/LEN        500     def                     % Länge der Linie
+/MAX_DEPTH  6       def                     % Rekursionstiefe
+/STARTX     50      def                     % Initialwert f. X-Koordinate
+/STARTY     300     def                     % Initialwert f. Y-Koordinate
+
+/down
+{               
+    /LEN LEN 3 div def
+    /depth depth 1 add def
+}   def
+
+/up
+{            
+    /LEN LEN 3 mul def
+    /depth depth 1 sub def    
+}   def
+
+/init
+{            
+    /depth 0 def                            % Tiefe auf 0 setzen         
+    
+    STARTX STARTY translate                 % Koordinatensystem an Startposition    
+}   def
+
+
+% line - rekursive Funktion
+/line
+{                                                       
+    depth MAX_DEPTH lt
+    {                                            
+        down                      
+        line                   
+        ANGLE1 rotate                  
+        line                  
+        ANGLE2 rotate                                  
+        line       
+        ANGLE1 rotate                 
+        line
+        up                                                                                                    
+    }           
+    {                   
+        LEN 0 rlineto                        % Linie zeichnen              
+        LEN 0 translate                                        
+    } ifelse  
+       
+}   def
+
+%%EndProlog
+
+% --------------------------------------------------------------------
+
+%%Page: 1 1
+
+init
+
+0 0 moveto
+ANGLE1 rotate
+line
+ANGLE2 rotate
+line
+ANGLE2 rotate
+line
+
+0 setgray fill                              % Füllfarbe 
+
+stroke
+
+showpage                                    % Bild ausgeben
+
+% --------------------------------------------------------------------
+
+%%Trailer
+%%Pages: 1
+
+% --------------------------------------------------------------------

@@ -1,0 +1,155 @@
+%!PS-Adobe-1.0
+% Achtung: Nicht optimiert!
+%%Creator: Ralph Schlosser
+%%Title: Triadische Kochinsel 
+%%CreationDate: 24.12.2002
+%%DocumentMedia: A4 595 842 0 () ()
+%%Orientation: Portrait
+%%Pages: (atend)
+%%EndComments
+
+% --------------------------------------------------------------------
+
+% Initialwerte
+/KANGLE1    60      def                     
+/KANGLE2    -120    def
+/CANGLE1    -60     def                     
+/CANGLE2    120     def                     
+/LEN        250     def                     % Länge der Linie
+/MAX_DEPTH  2       def                     % Rekursionstiefe
+/KSTARTX    100      def                     
+/KSTARTY    83     def                    
+/CSTARTX    225     def                     
+/CSTARTY    300     def
+/I_SQR_3    0.57735 def
+
+/CLEN LEN I_SQR_3 mul def
+
+/down
+{                   
+    /LEN LEN 3 div def    
+    /CLEN LEN I_SQR_3 mul def
+        
+    /depth depth 1 add def
+} def
+
+/up
+{            
+    /LEN LEN 3 mul def
+    /CLEN LEN I_SQR_3 mul def
+        
+    /depth depth 1 sub def    
+} def
+
+/init
+{            
+    /mode exch def
+    /depth 0 def                            % Tiefe auf 0 setzen         
+    
+    1 mode eq
+    {
+        KSTARTX KSTARTY translate   
+    }
+    {
+        CSTARTX CSTARTY translate        
+    } ifelse
+    
+    0 0 moveto
+                     % Koordinatensystem an Startposition    
+} def
+
+/kochline
+{                                                       
+    depth MAX_DEPTH lt
+    {                                            
+        down                      
+        kochline                  
+        KANGLE1 rotate                  
+        kochline                  
+        KANGLE2 rotate                                  
+        kochline      
+        KANGLE1 rotate                 
+        kochline
+        up                                                                                                    
+    }           
+    {                   
+        LEN 0 rlineto                        % Linie zeichnen              
+        LEN 0 translate                                        
+    } ifelse  
+       
+} def
+
+/cesline
+{                                                       
+    depth MAX_DEPTH lt
+    {                                            
+        down                      
+        cesline                  
+        CANGLE1 rotate                  
+        cesline                  
+        CANGLE2 rotate                                  
+        cesline       
+        CANGLE1 rotate                 
+        cesline
+        up                                                                                                    
+    }           
+    {                   
+        CLEN 0 rlineto                        % Linie zeichnen              
+        CLEN 0 translate                                        
+    } ifelse  
+       
+} def
+
+/cesaro
+{
+    2 init 
+    -30 rotate
+    cesline
+    -60 rotate
+    cesline
+    -60 rotate
+    cesline
+    -60 rotate
+    cesline
+    -60 rotate
+    cesline
+    -60 rotate
+    cesline
+    stroke
+} def
+
+/koch
+{
+    1 init
+    KANGLE1 rotate
+    kochline
+    KANGLE2 rotate
+    kochline
+    KANGLE2 rotate
+    kochline
+
+    %0 setgray fill
+
+    stroke
+
+} def
+%%EndProlog
+
+% --------------------------------------------------------------------
+
+%%Page: 1 1
+
+
+gsave
+koch
+grestore
+
+cesaro
+showpage                                    % Bild ausgeben
+
+% --------------------------------------------------------------------
+
+%%Trailer
+%%Pages: 1
+
+% --------------------------------------------------------------------

@@ -1,0 +1,121 @@
+%!PS-Adobe-1.0
+%%Creator: Ralph Schlosser
+%%Title: Fractal trees
+%%CreationDate: 26.12.2002
+%%DocumentMedia: A4 595 842 0 () ()
+%%Orientation: Portrait
+%%Pages: (atend)
+%%EndComments
+
+% --------------------------------------------------------------------
+
+/down
+{
+    /LEN LEN FAKT div def
+    /depth depth 1 add def
+}   def
+
+/up
+{
+    /LEN LEN FAKT mul def
+    /depth depth 1 sub def
+}   def
+
+/init
+{
+    /NEG_TH_2 -1 DELTA 2 div mul def
+    /TH_2 -1 NEG_TH_2 mul def
+    STARTX STARTY translate                 % Koordinatensystem an Startposition
+}   def
+
+/tree
+{
+    depth MAX_DEPTH lt
+    {
+        down
+        left
+        tree
+        right
+        tree
+        up
+    } if
+}   def
+
+
+/left
+{
+    gsave
+    /th_2 TH_2 def
+    halfline
+}   def
+
+/right
+{
+    grestore
+    /th_2 NEG_TH_2 def
+    halfline
+}   def
+
+/halfline
+{
+    0 0 moveto
+    th_2 rotate
+    0 LEN rlineto
+    0 LEN translate
+    stroke
+}   def
+
+/newtree
+{
+    gsave
+        init
+        /depth 0 def
+        tree
+    grestore
+
+}   def
+
+%%EndProlog
+
+% --------------------------------------------------------------------
+
+%%Page: 1 1
+
+% Initialwerte Baum 1
+/DELTA      30      def
+/MAX_DEPTH  8       def                     % Rekursionstiefe
+/STARTX     160     def                     % Initialwert f. X-Koordinate
+/STARTY     500     def                     % Initialwert f. Y-Koordinate
+/LEN        200     def
+/FAKT       2       def                     % Verkleinerungsfaktor
+
+newtree
+
+% Initialwerte Baum 2
+/DELTA      45      def
+/MAX_DEPTH  9       def                     % Rekursionstiefe
+/STARTX     420     def                     % Initialwert f. X-Koordinate
+/STARTY     410     def                     % Initialwert f. Y-Koordinate
+/LEN        240     def
+/FAKT       1.89    def                     % Verkleinerungsfaktor
+
+newtree
+
+% Initialwerte Baum 3
+/DELTA      200     def
+/MAX_DEPTH  9       def                     % Rekursionstiefe
+/STARTX     300     def                     % Initialwert f. X-Koordinate
+/STARTY     270     def                     % Initialwert f. Y-Koordinate
+/LEN        290     def
+/FAKT       1.6     def                     % Verkleinerungsfaktor
+
+newtree
+
+showpage                                    % Bild ausgeben
+
+% --------------------------------------------------------------------
+
+%%Trailer
+%%Pages: 1
+
+% --------------------------------------------------------------------
